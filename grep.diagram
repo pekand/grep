@@ -1,0 +1,1791 @@
+<diagram>
+  <option>
+    <shiftx>-211</shiftx>
+    <shifty>279</shifty>
+    <firstLayereShift.x>0</firstLayereShift.x>
+    <firstLayereShift.y>0</firstLayereShift.y>
+    <layer>0</layer>
+    <diagramreadonly>false</diagramreadonly>
+    <grid>true</grid>
+    <borders>false</borders>
+    <defaultfont>Open Sans; 10pt</defaultfont>
+    <coordinates>false</coordinates>
+    <window.position.x>0</window.position.x>
+    <window.position.y>0</window.position.y>
+    <window.position.width>100</window.position.width>
+    <window.position.height>100</window.position.height>
+    <window.state>0</window.state>
+  </option>
+  <rectangles>
+    <rectangle>
+      <id>1</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>generate</text>
+      <note>from System.IO import Directory, Path
+
+def get( id ):
+   note = Diagram.GetNodeByScriptID(id)
+   if note is not None:
+      return Diagram.GetNodeByScriptID(id).note + '\n'
+   else:
+      print "not found: " + id 
+      return ""
+
+def setDir():
+   Tools.log(Directory.SetCurrentDirectory(Path.GetDirectoryName(Diagram.FileName)))
+
+def save( FileName, out):
+   f = open(FileName, 'r')
+   data =  f.read()
+   f.close()
+
+   if data != out:
+      f = open(FileName, 'w')
+      f.write(out)
+      f.close()
+   else:
+      print "message: nothink to do in " + FileName
+
+out = ""
+
+out += get("grep.head")
+out += get("grep.settings")
+out += get("grep.options")
+out += get("grep.router")
+
+out += get("grep.templates")
+out += get("grep.templates.template_view_file_body")
+out += get("grep.templates.template_view_file_head")
+out += get("grep.templates.template_view_file_content")
+out += get("grep.templates.template_view_file_number")
+out += get("grep.templates.template_view_file_goto")
+
+out += get("grep.templates.template_list_dir_body")
+out += get("grep.templates.template_list_dir_row_dir")
+out += get("grep.templates.template_list_dir_row_file")
+
+out += get("grep.templates.template_search_body")
+out += get("grep.templates.template_search_menu")
+out += get("grep.templates.template_search_find_row_directory")
+out += get("grep.templates.template_search_find_row_file")
+out += get("grep.templates.template_search_grep_row_file")
+out += get("grep.templates.template_search_grep_row_in_file")
+
+out += get("grep.lib")
+out += get("grep.lib.excludepath")
+
+out += get("grep.replace")
+
+out += get("grep.view")
+out += get("grep.view.file_content")
+out += get("grep.view.list_directory")
+out += get("grep.view.search.findTextPos")
+out += get("grep.view.search")
+
+setDir()
+save('grep.out.php', out)
+
+Tools.ShowMessage('Done')</note>
+      <link>macro</link>
+      <scriptid>xxx</scriptid>
+      <layer>0</layer>
+      <x>742</x>
+      <y>14</y>
+      <color>#FF8080</color>
+      <timecreate>2015-4-29 22:28:57</timecreate>
+      <timemodify>2015-4-30 22:40:44</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>2</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>grep</text>
+      <link>.</link>
+      <layer>0</layer>
+      <x>592</x>
+      <y>102</y>
+      <color>#8080FF</color>
+      <timecreate>2015-4-29 23:11:17</timecreate>
+      <timemodify>2015-4-30 21:39:55</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>6</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>head</text>
+      <note>&lt;?php
+  /*
+    Andrej Pekar
+    2014-08-14 odstranene result a finish z vyhladavania
+    2014-10-27 zmena title na strankach pohladov
+
+  */
+</note>
+      <scriptid>grep.head</scriptid>
+      <layer>0</layer>
+      <x>653</x>
+      <y>162</y>
+      <color>#B9B9FF</color>
+      <timecreate>2015-4-29 23:12:28</timecreate>
+      <timemodify>2015-4-29 23:13:08</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>7</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>settings</text>
+      <note>  /*********/
+
+  // #SETTINGS
+  ini_set('memory_limit', '2048M');
+  error_reporting(E_ALL);
+  ini_set('display_errors', '1');
+  ini_set("auto_detect_line_endings", true);
+</note>
+      <scriptid>grep.settings</scriptid>
+      <layer>0</layer>
+      <x>653</x>
+      <y>211</y>
+      <color>#B9B9FF</color>
+      <timecreate>2015-4-29 23:12:42</timecreate>
+      <timemodify>2015-4-29 23:13:57</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>8</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>options</text>
+      <note>  /*********/
+
+  // #OPTIONS
+  $options = Array();
+
+  $options['default_extensions'] = 'php css sass js xml json yml twig htm html sql';
+  $options['max_file_size'] = 5*1024*1024; // max file size in B
+
+  $options['exclude_dir'] = array(
+  );
+</note>
+      <scriptid>grep.options</scriptid>
+      <layer>0</layer>
+      <x>653</x>
+      <y>260</y>
+      <color>#B9B9FF</color>
+      <timecreate>2015-4-29 23:16:35</timecreate>
+      <timemodify>2015-4-30 20:56:56</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>9</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>router</text>
+      <note>  /*********/
+
+  // #ROUTES
+  $search = "";
+  $path = "";
+  $view = "homescreen";
+  $listdir = "";
+  $searchall = false; // list all files in dyrectory (search is empty and find was pressed)
+
+  // hladane slovo
+  if(isset($_REQUEST['search']))
+  {
+    $search = $_REQUEST['search'];
+
+    if(trim($search)=="" &amp;&amp; isset($_REQUEST['find']))
+    {
+      $searchall = true;
+    }
+  }
+
+  // aktualny pohlad
+  if(isset($_REQUEST['view']))
+  {
+    $view = $_REQUEST['view'];
+  }
+
+  // #PARAMETER LINE - vybrany riadok na ktory sa ma skocit
+  $select_line = "";
+  if(isset($_REQUEST['line']))
+  {
+    $select_line = $_REQUEST['line'] + 0;
+  }
+
+  // #PARAMETER DIR - cesta pre replace
+  $dir = getcwd();
+  $directory_exist = false; // selected directory dont exist
+  if(isset($_REQUEST['dir']))
+  {
+    $dir = $_REQUEST['dir'];
+    $directory_exist = false;
+    if(file_exists($_REQUEST['dir']) &amp;&amp; is_dir($_REQUEST['dir']))
+    {
+      $directory_exist = true;
+    }
+  }
+  else
+  // #PARAMETER VIEW
+  if(isset($_REQUEST['path']))
+  {
+    if(file_exists($_REQUEST['path']) &amp;&amp; is_file($_REQUEST['path']))
+    {
+      $dir = dirname($_REQUEST['path']);
+      $path = $_REQUEST['path'];
+    }
+    else
+    {
+      echo "&lt;div&gt;Error : File not exist&lt;/div&gt;";
+      exit();
+    }
+  }
+  else
+  // #PARAMETER LISTDIR
+  if(isset($_REQUEST['listdir']))
+  {
+    if(file_exists($_REQUEST['listdir']) &amp;&amp; is_dir($_REQUEST['listdir']))
+    {
+      $listdir = $_REQUEST['listdir'];
+    }
+    else
+    {
+      echo "&lt;div&gt;Error : Directory not exist&lt;/div&gt;";
+      exit();
+    }
+  }
+
+  // #PARAMETER EXT_CHECK
+  $check_extension = false;
+  if(isset($_REQUEST['ext_check']))
+  {
+    if($_REQUEST['ext_check']=='ext_check' )
+    {
+      $check_extension = true;
+    }
+  }
+
+  // #PARAMETER EXT
+  $ext =Array();
+  if(isset($_REQUEST['ext']) &amp;&amp; trim($_REQUEST['ext'])!='' )
+  {
+    $ext = trim($_REQUEST['ext']);
+    $ext = preg_replace('/\s+/', ' ', $ext);
+    $ext = explode(' ', $ext);
+  }
+
+  // #PARAMETER datelimit
+  $datelimit = false;
+  $datestart = null;
+  $dateend = null;
+  if(isset($_REQUEST['datelimit']) &amp;&amp; isset($_REQUEST['datestart']) &amp;&amp; isset($_REQUEST['dateend']))
+  {
+    if($_REQUEST['datelimit']=='datelimit')
+    {
+      $datelimit = true;
+    }
+
+    $date_pattern = "/^[0-9]{0,4}-[0-3]{0,1}[0-9]{1}-[0-3]{0,1}[0-9]{1}(\s(0[0-9]|1[0-9]|2[0-4]|[0-9])(:([0-5][0-9]|[0-9])){0,1}){0,1}$/";
+    if(preg_match($date_pattern, $_REQUEST['datestart']))
+      $datestart = strtotime($_REQUEST['datestart']);
+    if(preg_match($date_pattern, $_REQUEST['dateend']))
+      $dateend   = strtotime($_REQUEST['dateend']);
+  }
+
+  // #PARAMETER FIND
+  $find = true;
+  if(isset($_REQUEST['find']))
+  {
+    if($_REQUEST['find']=='find')
+    {
+      $find = true;
+    }
+  }
+
+  // #PARAMETER GREP
+  $grep = false;
+  if(isset($_REQUEST['grep']))
+  {
+    if($_REQUEST['grep']=='grep' &amp;&amp; trim($search)!="")
+    {
+      $grep = true;
+    }
+  }
+
+  // #PARAMETER CASE
+  $matchcase = false;
+  if(isset($_REQUEST['matchcase']))
+  {
+    if($_REQUEST['matchcase']=='matchcase')
+    {
+      $matchcase = true;
+    }
+  }
+
+  // #PARAMETER FIND
+  $wait = false;
+  if(isset($_REQUEST['wait']))
+  {
+      $wait = true;
+  }
+
+  // #PARAMETER REGEX
+  $regex = false;
+  if(isset($_REQUEST['regex']))
+  {
+    if($_REQUEST['regex']=='regex')
+    {
+      $regex = true;
+    }
+  }
+
+  // #PARAMETER EXCLUDE
+  if(isset($_REQUEST['exclude']))
+  {
+    if($_REQUEST['exclude']!='')
+    {
+      $temp_path = explode(';', $_REQUEST['exclude']);
+      foreach ($temp_path as $temp) {
+        if (trim($temp) != "") {
+            if (file_exists($temp)) {
+                $options['exclude_dir'][] =  realpath($temp);
+            } else {
+                $temp_dir = realpath($dir). DIRECTORY_SEPARATOR .$temp;
+                if (file_exists($temp_dir)) {
+                    $options['exclude_dir'][] =  realpath($temp_dir);
+                }
+            }
+        }
+      }
+    }
+  }
+
+  // #REPLACE
+  $replace_replace ='';
+  if(isset($_REQUEST['replacestring']))
+  {
+    $replace_replace = $_REQUEST['replacestring'];
+  }
+</note>
+      <scriptid>grep.router</scriptid>
+      <layer>0</layer>
+      <x>653</x>
+      <y>309</y>
+      <color>#B9B9FF</color>
+      <timecreate>2015-4-29 23:21:26</timecreate>
+      <timemodify>2015-4-30 20:46:48</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>10</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>templates</text>
+      <note>  /*********/
+
+  // #TEMPLATES</note>
+      <scriptid>grep.templates</scriptid>
+      <layer>0</layer>
+      <x>789</x>
+      <y>168</y>
+      <color>#80FFFF</color>
+      <timecreate>2015-4-29 23:22:27</timecreate>
+      <timemodify>2015-4-30 20:47:06</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>11</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <layer>0</layer>
+      <x>608</x>
+      <y>171</y>
+      <color>#FFFFB8</color>
+      <transparent>true</transparent>
+      <timecreate>2015-4-29 23:24:10</timecreate>
+      <timemodify>2015-4-29 23:24:10</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>12</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <layer>0</layer>
+      <x>608</x>
+      <y>220</y>
+      <color>#FFFFB8</color>
+      <transparent>true</transparent>
+      <timecreate>2015-4-29 23:24:11</timecreate>
+      <timemodify>2015-4-29 23:24:11</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>13</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <layer>0</layer>
+      <x>608</x>
+      <y>269</y>
+      <color>#FFFFB8</color>
+      <transparent>true</transparent>
+      <timecreate>2015-4-29 23:24:12</timecreate>
+      <timemodify>2015-4-29 23:24:12</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>14</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <layer>0</layer>
+      <x>608</x>
+      <y>318</y>
+      <color>#FFFFB8</color>
+      <transparent>true</transparent>
+      <timecreate>2015-4-29 23:24:13</timecreate>
+      <timemodify>2015-4-29 23:24:13</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>17</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>grep.out.php</text>
+      <link>.\grep.out.php</link>
+      <layer>0</layer>
+      <x>843</x>
+      <y>14</y>
+      <color>#D9CCFF</color>
+      <timecreate>2015-4-30 18:42:33</timecreate>
+      <timemodify>2015-4-30 18:42:33</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>18</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>grep.php</text>
+      <link>.\grep.php</link>
+      <layer>0</layer>
+      <x>968</x>
+      <y>14</y>
+      <color>#D9CCFF</color>
+      <timecreate>2015-4-30 18:42:46</timecreate>
+      <timemodify>2015-4-30 18:42:46</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>19</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>template_view_file_body</text>
+      <note>  function template_view_file_body($params = array())
+  {
+    return "&lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;meta charset='utf-8' /&gt;
+        &lt;title&gt;".$params['title']."&lt;/title&gt;
+
+        &lt;style&gt;
+          .clear{clear:both;}
+          .left{float:left;}
+
+          *{font-family:'Courier New';}
+          body{margin:0px;padding:0px;}
+          b{color:red;font-weight:normal;}
+          pre{margin:0px;padding:0px;}
+
+          table, tr, td {
+            margin:0px;padding:0px;
+            border:0px solid black;
+            border-spacing:0px;
+          }
+          .no_select{
+           -webkit-touch-callout: none;
+           -webkit-user-select: none;
+           -khtml-user-select: none;
+           -moz-user-select: none;
+           -ms-user-select: none;
+           user-select: none;
+         }
+         .highlight:hover{
+           background-color:#CFF29B;
+         }
+
+         .st1{background-color:gray;padding:10px;}
+         .st2{margin:0px;padding:0px;}
+         .st3{width:100%;}
+         .st4{width:50px;}
+         .st5{width:99%;}
+
+         .st6{line-height:18px;}
+
+         .line_number{padding:0px 10px;margin-right:5px;height:18px;line-height:18px;}
+         .higlight_row{background-color:red;}
+         .normal_row{background-color:grey;}
+
+         .higlight_word{background-color:#FF6666;}
+         .higlight_symbol{color:blue;}
+         .higlight_number{color:green;}
+        &lt;/style&gt;
+
+        &lt;script&gt;
+
+            function gotoline(eid)
+            {
+              document.getElementById('element-'+eid).scrollIntoView();
+            }
+
+            function escapeHtml(unsafe)
+            {
+              return unsafe
+                  .replace('&amp;', '&amp;amp;')
+                  .replace('&lt;', '&amp;lt;')
+                  .replace('&gt;', '&amp;gt;')
+                  .replace('\"', '&amp;quot;')
+                  .replace('\'', '&amp;#039;');
+            }
+
+            function higligter(element,word)
+            {
+                var symbols = '\\\[]+-\\\"\\'{}=()*/&lt;&gt;;,.!@#$%^&amp;_~?:|_';
+                var numbers = '1234567890';
+                var text = document.getElementById(element).textContent;
+                var len = text.length;
+                var wordlen = word.length;
+                var out = '';
+                var is_in = false;
+                for(var i=0;i&lt;len;i++){
+                  is_in = false;
+                  if(wordlen&gt;0 &amp;&amp; i+wordlen&lt;=len &amp;&amp; text.substr(i,wordlen)==word ){
+                    out += '&lt;span class=\\\"higlight_word\\\"&gt;'+escapeHtml(word)+'&lt;/span&gt;';
+                    i=i+wordlen-1;
+                    continue;
+                  }
+                  for(var j=0;j&lt;symbols.length;j++){
+                    if(text[i]==symbols[j]){
+                      is_in = true;
+                      break;
+                    }
+                  }
+                  if(is_in){
+                    out += '&lt;span class=\\\"higlight_symbol\\\"&gt;'+escapeHtml(text[i])+'&lt;/span&gt;';
+                  }
+                  else
+                  if('0'&lt;=text[i] &amp;&amp; text[i]&lt;='9'){
+                     out += '&lt;span class=\\\"higlight_number\\\"&gt;'+escapeHtml(text[i])+'&lt;/span&gt;';
+                  }
+                  else{
+                    out +=escapeHtml(text[i]);
+                  }
+                }
+
+                document.getElementById(element).innerHTML = out;
+            }
+
+            higligter('file-content','".$params['search']."');
+        &lt;/script&gt;
+
+      &lt;/head&gt;
+
+      &lt;body&gt;".$params['html']."&lt;/body&gt;
+
+      &lt;script&gt;
+        higligter('file-content','".$params['search']."');
+      &lt;/script&gt;
+    &lt;/html&gt;";
+  }
+</note>
+      <scriptid>grep.templates.template_view_file_body</scriptid>
+      <layer>0</layer>
+      <x>939</x>
+      <y>171</y>
+      <color>#FFC1A4</color>
+      <timecreate>2015-4-30 18:44:30</timecreate>
+      <timemodify>2015-4-30 19:24:24</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>20</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>template_view_file_head</text>
+      <note>  function template_view_file_head($params = array())
+  {
+    return "
+      &lt;div class='template-view-file-head st1' &gt;
+        &lt;form method='get' action='edit' class='st2' &gt;
+          &lt;table class='st3' &gt;
+            &lt;tr&gt;
+              &lt;td class='st4'&gt;
+                &lt;span&gt;Grep&lt;/span&gt;
+              &lt;/td&gt;
+              &lt;td&gt;
+                &lt;input type='text' class='st5' name='filepath' id='filepath' value='".$params['path']."' /&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+    ";
+  }
+</note>
+      <scriptid>grep.templates.template_view_file_head</scriptid>
+      <layer>0</layer>
+      <x>939</x>
+      <y>220</y>
+      <color>#FFC1A4</color>
+      <timecreate>2015-4-30 18:45:49</timecreate>
+      <timemodify>2015-4-30 19:24:30</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>21</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>template_view_file_content</text>
+      <note>  function template_view_file_content($params = array())
+  {
+    return "
+    &lt;div class='template-view-file-content'&gt;
+      &lt;table&gt;
+        &lt;tr&gt;
+          &lt;td&gt;".$params['numbers']."&lt;/td&gt;
+          &lt;td&gt;
+            &lt;pre id='file-content' class='st6'&gt;".$params['lines']."&lt;/pre&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+    ";
+  }
+</note>
+      <scriptid>grep.templates.template_view_file_content</scriptid>
+      <layer>0</layer>
+      <x>931</x>
+      <y>269</y>
+      <color>#FFC1A4</color>
+      <timecreate>2015-4-30 18:46:44</timecreate>
+      <timemodify>2015-4-30 19:24:37</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>22</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>template_view_file_number</text>
+      <note>  function template_view_file_number($params = array())
+  {
+    return "&lt;div id='element-".$params['ln']."' class='template-view-file-number ".$params['color']." line_number no_select' &gt;".$params['lnPad']."&lt;/div&gt;";
+  }
+</note>
+      <scriptid>grep.templates.template_view_file_number</scriptid>
+      <layer>0</layer>
+      <x>930</x>
+      <y>318</y>
+      <color>#FFC1A4</color>
+      <timecreate>2015-4-30 18:49:03</timecreate>
+      <timemodify>2015-4-30 19:24:43</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>23</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>template_view_file_goto</text>
+      <note>  function template_view_file_goto($params = array())
+  {
+    return "&lt;div class='template-view-file-goto' &gt;&lt;script&gt;gotoline(".$params['select_line'].");&lt;/script&gt;&lt;/div&gt;";
+  }
+</note>
+      <scriptid>grep.templates.template_view_file_goto</scriptid>
+      <layer>0</layer>
+      <x>941</x>
+      <y>367</y>
+      <color>#FFC1A4</color>
+      <timecreate>2015-4-30 18:50:04</timecreate>
+      <timemodify>2015-4-30 19:24:48</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>24</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>template_list_dir_body</text>
+      <note>  function template_list_dir_body($params = array())
+  {
+    return "&lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;meta charset='utf-8' /&gt;
+        &lt;title&gt;".$params['title']."&lt;/title&gt;
+
+        &lt;style&gt;
+         .clear{clear:both;}
+         .left{float:left;}
+
+         *{font-family:'Courier New';}
+         body{margin:0px;padding:0px;}
+         b{color:red;}
+
+         .content{background-color:gray;padding:10px;}
+         .r1{width:100px;}
+         .r2{width:600px;}
+         .r3{background-color:purple;width:10px;height:10px;margin:5px;}
+         .r4{background-color:purple;width:10px;height:10px;margin:5px;}
+         .r5{color:purple;}
+         .r6{color:purple;}
+        &lt;/style&gt;
+
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;div class='content' &gt;
+          &lt;table&gt;
+            &lt;tr&gt;
+              &lt;td class='r1'&gt;
+                Directory:
+              &lt;/td&gt;
+              &lt;td&gt;
+                &lt;input type='text' class='r2' name='directorypath' id='directorypath' value='".$params['listdir']."' /&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+
+        ".$params['html']."
+      &lt;/body&gt;
+    &lt;/html&gt;";
+  }
+</note>
+      <scriptid>grep.templates.template_list_dir_body</scriptid>
+      <layer>0</layer>
+      <x>1191</x>
+      <y>167</y>
+      <color>#FFC1A4</color>
+      <timecreate>2015-4-30 18:50:59</timecreate>
+      <timemodify>2015-4-30 19:26:05</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>25</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>template_list_dir_row_dir</text>
+      <note>  function template_list_dir_row_dir($params = array())
+  {
+    return "
+      &lt;hr/&gt;
+      &lt;div class='template-list-dir-row-dir'&gt;
+        &lt;a href='".$params['url']."' target='_blank' &gt;&lt;div class='r3 left' &gt;&lt;/div&gt;&lt;/a&gt;
+        &lt;div class='left' &gt;
+          &lt;span class='r6' id='element-".$params['order']."' onclick='gotonext(".$params['order_next'].")' &gt;".$params['type']."&lt;/span&gt; : ".$params['entry']."
+        &lt;/div&gt;
+        &lt;div class='clear'&gt;&lt;/div&gt;
+      &lt;/div&gt;";
+  }
+</note>
+      <scriptid>grep.templates.template_list_dir_row_dir</scriptid>
+      <layer>0</layer>
+      <x>1183</x>
+      <y>216</y>
+      <color>#FFC1A4</color>
+      <timecreate>2015-4-30 18:57:29</timecreate>
+      <timemodify>2015-4-30 19:25:04</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>26</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>template_list_dir_row_file</text>
+      <note>  function template_list_dir_row_file($params = array())
+  {
+    return "
+    &lt;hr/&gt;
+    &lt;div class='template-list-dir-row-file' &gt;
+      &lt;a href='".$params['url']."' target='_blank'&gt;&lt;div class='r4 left' &gt;&lt;/div&gt;&lt;/a&gt;
+      &lt;div class='left'&gt;
+        &lt;span class='r5' id='element-".$params['order']."' onclick='gotonext(".$params['order_next'].")' &gt;".$params['type']."&lt;/span&gt; : ".$params['entry']."
+      &lt;/div&gt;
+      &lt;div class='clear' &gt;&lt;/div&gt;
+    &lt;/div&gt;";
+  }
+</note>
+      <scriptid>grep.templates.template_list_dir_row_file</scriptid>
+      <layer>0</layer>
+      <x>1182</x>
+      <y>265</y>
+      <color>#FFC1A4</color>
+      <timecreate>2015-4-30 18:59:17</timecreate>
+      <timemodify>2015-4-30 19:25:09</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>27</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>template_search_body</text>
+      <note>  function template_search_body($params = array())
+  {
+    return "&lt;!DOCTYPE html&gt;
+      &lt;html&gt;
+        &lt;head&gt;
+          &lt;meta charset='utf-8' /&gt;
+          &lt;title&gt;".$params['title']."&lt;/title&gt;
+          &lt;style&gt;
+            .clear{clear:both;}
+            .left{float:left;}
+
+            *{font-family:'Courier New';}
+            body{margin:0px;padding:0px;}
+
+            b{color:red;}
+            hr{display: block; height: 1px;
+            border: 0; border-top: 1px solid #ccc;
+            margin: 1em 0; padding: 0;}
+            .filePath{font-size:75%;}
+
+            .t1{background-color:gray;padding:10px;}
+            .t2{margin:0px;padding:0px;}
+            .t3{width:100px;}
+            .t4{width:600px;}
+            .t5{width:100px;}
+            #replacestring{width:600px;}
+            #dir{width:600px;}
+            #exclude{width:600px;}
+            #ext{width:569px;}
+            .t9{width:200px;}
+            .t10{width:200px;}
+            .t11{background-color:purple;width:10px;height:10px;margin:5px;}
+            .t12{color:purple;}
+            .t13{background-color:purple;width:10px;height:10px;margin:5px;}
+            .t14{color:purple;}
+            .t15{background-color:purple;width:10px;height:10px;margin:5px;}
+            .t16{color:purple;}
+            .t17{background-color:green;width:10px;height:10px;margin:5px;}
+            .t18{color:green;}
+            .t19{color:blue;}
+
+          &lt;/style&gt;
+
+          &lt;script&gt;
+            function gotonext(eid)
+            {
+              document.getElementById('element-'+eid).scrollIntoView();
+            }
+
+            function promptCopy(e) {
+              window.prompt('Copy to clipboard: Ctrl+C, Enter', e.textContent);
+            }
+
+            document.onkeydown=function(e){
+                if( (e.which == 83) &amp;&amp; (!e.altKey) &amp;&amp; e.ctrlKey ) {
+                  window.location.hash = '#search';
+                  document.getElementById('search').focus();
+                  return false;
+                }
+            }
+          &lt;/script&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+          ".$params['menu']."
+          ".$params['html']."
+        &lt;/body&gt;
+      &lt;/html&gt;";
+  }
+</note>
+      <scriptid>grep.templates.template_search_body</scriptid>
+      <layer>0</layer>
+      <x>1464</x>
+      <y>168</y>
+      <color>#FFC1A4</color>
+      <timecreate>2015-4-30 19:00:33</timecreate>
+      <timemodify>2015-4-30 19:25:16</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>28</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>template_search_menu</text>
+      <note>  function template_search_menu($params = array())
+  {
+    return "&lt;div class='template-search-menu t1' &gt;
+        &lt;form method='get' action='' class='t2' &gt;
+          &lt;table&gt;
+            &lt;tr&gt;
+              &lt;td class='t3' &gt;Search: &lt;/td&gt;
+              &lt;td&gt;
+                &lt;input type='text' name='search' id='search' class='t4' value=\"".$params['search']."\" /&gt;
+                &lt;input type='hidden' name='view' value='search' /&gt;
+                &lt;input type='submit' name='find' value='Find' /&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;Directory: &lt;/td&gt;
+              &lt;td&gt;
+                &lt;input type='text' name='dir' id='dir' value='".$params['dir']."' style='background-color:".($params['directory_exist'] ? "" : "#FFCCCC")."'/&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+             &lt;tr&gt;
+              &lt;td&gt;Exclude: &lt;/td&gt;
+              &lt;td&gt;
+                &lt;input type='text' name='exclude' id='exclude' value='".$params['exclude']."' /&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;Extensions: &lt;/td&gt;
+              &lt;td&gt;
+                &lt;input id='ext_check' name='ext_check' value='ext_check' type='checkbox' ".$params['ext_check']."&gt;
+                &lt;input type='text' name='ext' id='ext' value='".$params['extensions']."' /&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;Date: &lt;/td&gt;
+              &lt;td&gt;
+                &lt;input type='checkbox' name='datelimit' id='datelimit' value='datelimit' ".$params['datelimit']." /&gt;
+                &lt;input type='text' class='t9' name='datestart' id='datestart' value='".$params['datestart']."' /&gt;
+                &lt;input type='text' class='t10' name='dateend' id='dateend' value='".$params['dateend']."' /&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;Options: &lt;/td&gt;
+              &lt;td&gt;
+                &lt;input type='checkbox' name='file_find' id='file_find' value='file_find' ".$params['file_find']." /&gt;
+                &lt;label for='file_find'&gt;Find&lt;/label&gt;
+                &lt;input type='checkbox' name='grep' id='grep' value='grep' ".$params['grep']." /&gt;
+                &lt;label for='grep'&gt;Grep&lt;/label&gt;
+                &lt;input type='checkbox' name='matchcase' id='matchcase' value='matchcase' ".$params['matchcase']." /&gt;
+                &lt;label for='matchcase'&gt;Match case&lt;/label&gt;
+                &lt;input type='checkbox' name='regex' id='regex' value='regex' ".$params['regex']." /&gt;
+                &lt;label for='regex'&gt;Regex&lt;/label&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/table&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;";
+  }
+</note>
+      <scriptid>grep.templates.template_search_menu</scriptid>
+      <layer>0</layer>
+      <x>1462</x>
+      <y>217</y>
+      <color>#FFC1A4</color>
+      <timecreate>2015-4-30 19:01:36</timecreate>
+      <timemodify>2015-4-30 19:25:21</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>29</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>template_search_find_row_directory</text>
+      <note>  function template_search_find_row_directory($params = array())
+  {
+    return "
+      &lt;hr/&gt;
+      &lt;div class='template-search-find-row-directory' &gt;
+        &lt;a href='".$params['url']."' target='_blank'&gt;&lt;div class='t11 left' &gt;&lt;/div&gt;&lt;/a&gt;
+        &lt;div class='left'&gt;
+          &lt;span class='t12' id='element-".$params['order']."' onclick='gotonext(".$params['order_next'].")' &gt;".$params['type']."&lt;/span&gt; : ".$params['dir_name']."
+        &lt;/div&gt;
+        &lt;div class='clear' &gt;&lt;/div&gt;
+      &lt;/div&gt;";
+  }
+</note>
+      <scriptid>grep.templates.template_search_find_row_directory</scriptid>
+      <layer>0</layer>
+      <x>1421</x>
+      <y>266</y>
+      <color>#FFC1A4</color>
+      <timecreate>2015-4-30 19:02:27</timecreate>
+      <timemodify>2015-4-30 19:25:26</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>30</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>template_search_find_row_file</text>
+      <note>  function template_search_find_row_file($params = array())
+  {
+    return "
+      &lt;hr/&gt;
+      &lt;div class='template-search-find-row-file' &gt;
+        &lt;a href='".$params['url']."' target='_blank'&gt;&lt;div class='t13 left' &gt;&lt;/div&gt;&lt;/a&gt;
+        &lt;div class='left'&gt;
+          &lt;span class='t14' id='element-".$params['order']."' onclick='gotonext(".$params['order_next'].")' &gt;".$params['type']."&lt;/span&gt; : ".$params['file_name']."
+        &lt;/div&gt;
+        &lt;div class='clear' &gt;&lt;/div&gt;
+      &lt;/div&gt;";
+  }
+</note>
+      <scriptid>grep.templates.template_search_find_row_file</scriptid>
+      <layer>0</layer>
+      <x>1440</x>
+      <y>315</y>
+      <color>#FFC1A4</color>
+      <timecreate>2015-4-30 19:03:28</timecreate>
+      <timemodify>2015-4-30 19:25:32</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>31</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>template_search_grep_row_file</text>
+      <note>  function template_search_grep_row_file($params = array())
+  {
+    return "
+      &lt;hr/&gt;
+      &lt;div class='template-search-grep-row-file' &gt;
+          &lt;a href='".$params['url']."' target='_blank' &gt;
+            &lt;div class='t15 left' &gt;&lt;/div&gt;
+          &lt;/a&gt;
+          &lt;div class='left' &gt;
+            &lt;span class='t16' id='element-".$params['order']."' onclick='gotonext(".$params['order_next'].")' &gt;File&lt;/span&gt; : &lt;span ondblclick='promptCopy(this);' class='filePath' &gt;".$params['param_file_name']."&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class='clear'&gt;&lt;/div&gt;
+      &lt;/div&gt;";
+  }
+</note>
+      <scriptid>grep.templates.template_search_grep_row_file</scriptid>
+      <layer>0</layer>
+      <x>1437</x>
+      <y>364</y>
+      <color>#FFC1A4</color>
+      <timecreate>2015-4-30 19:04:32</timecreate>
+      <timemodify>2015-4-30 19:25:37</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>32</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>template_search_grep_row_in_file</text>
+      <note>  function template_search_grep_row_in_file($params = array())
+  {
+    return "
+      &lt;div class='template-search-grep-row-in-file' &gt;
+        &lt;a href='".$params['url']."' target='_blank' &gt;&lt;div class='t17 left' &gt;&lt;/div&gt;&lt;/a&gt;
+        &lt;div class='left'&gt;
+          &lt;span class='t18' id='element-".$params['order']."' onclick='gotonext(".$params['order_next'].")' &gt;Line&lt;/span&gt;(&lt;span class='t19' &gt;".$params['param_line_number']."&lt;/span&gt;) : ".$params['param_line_text']."
+        &lt;/div&gt;
+        &lt;div class='clear' &gt;&lt;/div&gt;
+      &lt;/div&gt;";
+  }
+</note>
+      <scriptid>grep.templates.template_search_grep_row_in_file</scriptid>
+      <layer>0</layer>
+      <x>1428</x>
+      <y>413</y>
+      <color>#FFC1A4</color>
+      <timecreate>2015-4-30 19:04:42</timecreate>
+      <timemodify>2015-4-30 19:25:42</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>36</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>lib</text>
+      <note>  /*********/
+
+  // #LIB
+</note>
+      <scriptid>grep.lib</scriptid>
+      <layer>0</layer>
+      <x>653</x>
+      <y>360</y>
+      <color>#80FFFF</color>
+      <timecreate>2015-4-30 19:41:29</timecreate>
+      <timemodify>2015-4-30 19:41:58</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>38</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <layer>0</layer>
+      <x>608</x>
+      <y>369</y>
+      <color>#FFFFB8</color>
+      <transparent>true</transparent>
+      <timecreate>2015-4-30 19:42:01</timecreate>
+      <timemodify>2015-4-30 19:42:01</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>39</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>excludepath</text>
+      <note>  function excludepath($path)
+  {
+    global $options;
+    foreach($options['exclude_dir'] as $exc)
+    {
+      if($pos = strpos($path, $exc) !== false)
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+</note>
+      <scriptid>grep.lib.excludepath</scriptid>
+      <layer>0</layer>
+      <x>706</x>
+      <y>360</y>
+      <color>#FFC1A4</color>
+      <timecreate>2015-4-30 19:54:09</timecreate>
+      <timemodify>2015-4-30 19:55:18</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>40</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>replace </text>
+      <note>  /*********/
+  // replace script
+  /*if($options['allowreplace'] &amp;&amp; $search!='' &amp;&amp; isset($_REQUEST['replace']) &amp;&amp; $_REQUEST['replace']=='Replace' &amp;&amp; isset($_REQUEST['replace_check']) &amp;&amp; $_REQUEST['replace_check']=='replace_check' &amp;&amp; file_exists($dir) &amp;&amp; is_dir($dir))
+  {
+    foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir)) as $file)
+    {
+      if($datelimit &amp;&amp; !($datestart&lt;=filemtime($file) &amp;&amp; filemtime($file)&lt;=$dateend))
+        continue;
+
+      if(is_file($file) &amp;&amp; (!$check_extension || in_array(pathinfo($file, PATHINFO_EXTENSION), $ext)))
+      {
+        $replace_content = file_get_contents($file);
+        $pos = false;
+        if($matchcase)
+          $pos = strpos($replace_content, $search);
+        else
+          $pos = stripos($replace_content, $search);
+        if($pos!==false)
+        {
+          if($matchcase)
+            file_put_contents($file,str_replace($search, $replace_replace, $replace_content));
+          else
+            file_put_contents($file,str_ireplace($search, $replace_replace, $replace_content));
+        }
+      }
+    }
+    header("Location:http://".$_SERVER['HTTP_HOST'].str_replace("?replace=Replace","",str_replace("&amp;replace=Replace","",$_SERVER['REQUEST_URI'])));
+    exit();
+  }*/
+</note>
+      <scriptid>grep.replace</scriptid>
+      <layer>0</layer>
+      <x>655</x>
+      <y>415</y>
+      <color>#FFFFB8</color>
+      <timecreate>2015-4-30 19:56:51</timecreate>
+      <timemodify>2015-4-30 20:07:43</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>41</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <layer>0</layer>
+      <x>608</x>
+      <y>424</y>
+      <color>#FFFFB8</color>
+      <transparent>true</transparent>
+      <timecreate>2015-4-30 19:57:20</timecreate>
+      <timemodify>2015-4-30 19:57:20</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>42</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>View file content</text>
+      <note>  /*********/
+  // #VIEW VIEW FILE CONTENT
+  if($path!='')
+  {
+    // horny panel
+    $html .= template_view_file_head(array(
+      'path' =&gt; htmlspecialchars($path),
+    ));
+
+    $higlight_word = false;
+    if(trim($search)!='') $higlight_word = true;
+
+    $html .= "";
+    $lines = "";
+    $numbers = "";
+    $f = fopen ( $path , "r");
+    $ln = 0;
+    $cnt = 0;
+    while ($line = fgets ($f))
+    {
+        ++$ln;
+        if ($line===FALSE)
+        {
+          print ("FALSE\n");
+        }
+        else
+        {
+          if($searchall){
+            $color = "normal_row";
+          }
+          else
+          if($higlight_word &amp;&amp; ($pos = (($matchcase)?strpos($line, $search):stripos($line, $search)))!==false)
+          {
+            $color = "higlight_row";
+          }
+          else
+          {
+            $color = "normal_row";
+          }
+          $numbers.= template_view_file_number(array(
+            'ln' =&gt; $ln,
+            'color' =&gt; $color,
+            'lnPad' =&gt; str_pad($ln, 4, '0', STR_PAD_LEFT),
+          ));
+          $lines .= $line;
+        }
+    }
+    fclose ($f);
+    $html .= template_view_file_content(array(
+      'numbers' =&gt; $numbers,
+      'lines' =&gt; htmlspecialchars($lines),
+    ));
+
+    if($select_line!='')
+      $html .= template_view_file_goto(array(
+      'select_line' =&gt; $select_line
+    ));
+
+    $path_parts = pathinfo($path);
+
+    echo template_view_file_body(array(
+      'title' =&gt; $path_parts['basename'],
+      'html' =&gt; $html,
+      'search' =&gt; addslashes($search)
+    ));
+  }
+</note>
+      <scriptid>grep.view.file_content</scriptid>
+      <layer>0</layer>
+      <x>964</x>
+      <y>102</y>
+      <color>#B9B9FF</color>
+      <timecreate>2015-4-30 19:58:39</timecreate>
+      <timemodify>2015-4-30 20:01:55</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>43</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>view</text>
+      <note>  $html = "";
+</note>
+      <scriptid>grep.view</scriptid>
+      <layer>0</layer>
+      <x>807</x>
+      <y>102</y>
+      <color>#80FFFF</color>
+      <timecreate>2015-4-30 19:59:35</timecreate>
+      <timemodify>2015-4-30 20:57:23</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>46</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>List directory</text>
+      <note>  /*********/
+  //* LIST DIRECTORY*\\
+  if($view == 'listdir') // #VIEW listdir
+  {
+
+    $order = 0;
+    if ($handle = opendir($dir)) {
+        while (false !== ($entry = readdir($handle))) {
+          if ($entry != "." &amp;&amp; $entry != "..") {
+            $entry = $dir . DIRECTORY_SEPARATOR . $entry;
+
+            if(is_dir($entry))
+            {
+              $type = "Dir";
+              $url = "?view=listdir&amp;dir=".urlencode(dirname($entry))."";
+              $html .= template_list_dir_row_dir(array(
+                'url' =&gt; $url,
+                'order' =&gt; $order,
+                'order_next' =&gt; $order+1,
+                'type' =&gt; $type,
+                'entry' =&gt; htmlspecialchars(dirname($entry)),
+              ));
+
+            }
+            else
+            if(is_file($entry))
+            {
+              $type = "File";
+              $url = "?view=view&amp;path=".urlencode($entry)."";
+              $html .= template_list_dir_row_file(array(
+                'url' =&gt; $url,
+                'order' =&gt; $order,
+                'order_next' =&gt; $order+1,
+                'type' =&gt; $type,
+                'entry' =&gt; htmlspecialchars(dirname($entry)),
+              ));
+            }
+
+            $order = $order + 1;
+          }
+        }
+        closedir($handle);
+    }
+
+    echo template_list_dir_body(array(
+      'title' =&gt;(($dir!='')?"..".substr($dir, -20)." - Grep":"Grep"),
+      'listdir' =&gt; htmlspecialchars($dir),
+      'html' =&gt; $html,
+    ));
+  }
+</note>
+      <scriptid>grep.view.list_directory</scriptid>
+      <layer>0</layer>
+      <x>1222</x>
+      <y>102</y>
+      <color>#B9B9FF</color>
+      <timecreate>2015-4-30 20:00:53</timecreate>
+      <timemodify>2015-4-30 20:01:46</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>48</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>View search</text>
+      <note>  /*********/
+  //* VIEW SEARCH *\\
+
+  if($view == 'search' || $view == 'homescreen' ){
+    $count_all = 0;
+    $count_grep = 0;
+    $count_file = 0;
+
+    if(($search!='' || $searchall) &amp;&amp; $directory_exist &amp;&amp; !$wait)
+    {
+      $html .= "&lt;div&gt;";
+      $order = 0;
+      $time_start = microtime(true);
+      $it = new RecursiveDirectoryIterator($dir);
+      foreach(new RecursiveIteratorIterator($it) as $file)
+      {
+
+        // skip files whits is not in time interval
+        if($datelimit &amp;&amp; !($datestart&lt;=filemtime($file) &amp;&amp; filemtime($file)&lt;=$dateend))
+        {
+          continue;
+        }
+
+        // skip files with bad extension
+        if( $check_extension &amp;&amp; !in_array(pathinfo($file, PATHINFO_EXTENSION), $ext) )
+        {
+            continue;
+        }
+
+        // skip large files
+        if(isset($options['max_file_size']) &amp;&amp; @filesize($file) &gt; $options['max_file_size'])
+        {
+          continue;
+        }
+
+        // skip paths whitch contain string
+        if(excludepath(realpath($file)))
+        {
+          continue;
+        }
+
+
+        if($find == true)  // hladanie súboru (find)
+        {
+
+          if(basename($file)=='.' &amp;&amp; ( $searchall ||
+            $pos = findTextPos($search, basename(dirname($file)), $regex, $matchcase) ) )// directory
+          {
+            if(is_dir($file))
+            {
+              $type = "Dir";
+              $url = "?view=listdir&amp;dir=".urlencode(dirname($file))."";
+            }
+
+            $count_all++;
+            $count_file++;
+
+            $html .= template_search_find_row_directory(array(
+              'url' =&gt; $url,
+              'order' =&gt; $order,
+              'order_next' =&gt; $order+1,
+              'type' =&gt; $type,
+              'dir_name' =&gt; preg_replace("~(".preg_quote($search).")~i", "&lt;b&gt;$1&lt;/b&gt;", htmlspecialchars(dirname($file))),
+            ));
+
+            $order = $order + 1;
+          }
+          else
+          if(basename($file)=='..') // skip ..
+          {
+          }
+          else
+          if
+          (
+            $searchall ||
+            ($pos = (($matchcase)?strpos(basename($file), $search):stripos(basename($file), $search)))!==false
+          ) // file
+          {
+
+            $url = '';
+            $type = '';
+            if(is_file($file))
+            {
+              $type = "File";
+              $url = "?view=view&amp;path=".urlencode($file)."";
+            }
+
+            $count_all++;
+            $count_file++;
+
+            $html .= template_search_find_row_file(array(
+              'url' =&gt; $url,
+              'order' =&gt; $order,
+              'order_next' =&gt; $order+1,
+              'type' =&gt; $type,
+              'file_name' =&gt; preg_replace("~(".preg_quote($search).")~i", "&lt;b&gt;$1&lt;/b&gt;", htmlspecialchars($file)),
+            ));
+            $order = $order + 1;
+          }
+        }
+
+        if($grep == true &amp;&amp; !$searchall) // prehladavanie súboru (grep)
+        {
+          if(is_file($file)){
+
+              $f = @fopen($file, "r");
+              if($f==null) continue;
+
+              $ln = 0;
+              $cnt = 0;
+
+              $line_block = "";
+              $found_in_file = false;
+              while ($line = fgets ($f)) // po riadku
+              {
+                  ++$ln;
+                  if ($line===FALSE)
+                  {
+                    print ("FALSE\n");
+                  }
+                  else
+                  {
+                    $pos = findTextPos($search, $line, $regex, $matchcase);
+                    //var_dump($pos);die();
+                    if((!$regex &amp;&amp; $pos !== false) || ($regex &amp;&amp; $pos!=0)) // vyhladanie slova
+                    {
+
+                      $found_in_file = true;
+                      $count_all++;
+                      $count_grep++;
+
+                      $param_search = urlencode($search);
+                      $param_file = urlencode($file);
+                      $param_line_number = str_pad($ln,4,'0', STR_PAD_LEFT);
+                      $param_file_name = preg_replace("~(".preg_quote($search).")~i", "&lt;b&gt;$1&lt;/b&gt;", htmlspecialchars($file));
+                      $param_line_text = preg_replace("~(".preg_quote($search).")~i", "&lt;b&gt;$1&lt;/b&gt;", htmlspecialchars(substr($line,0,1500)));
+
+                      if($cnt == 0 ) // subor s najdenim textom
+                      {
+                        $line_block .= template_search_grep_row_file(array(
+                          'url' =&gt; "?view=view&amp;search=".$param_search."&amp;path=".$param_file,
+                          'order' =&gt; $order,
+                          'order_next' =&gt; $order+1,
+                          'param_file_name' =&gt; $param_file_name,
+                        ));
+                        $order = $order + 1;
+                      }
+
+                      // riadok v subore
+                      $line_block .= template_search_grep_row_in_file(array(
+                          'url' =&gt; "?view=view&amp;search=".$param_search."&amp;line=".$ln."&amp;path=".$param_file,
+                          'order' =&gt; $order,
+                          'order_next' =&gt; $order+1,
+                          'param_line_number' =&gt; $param_line_number,
+                          'param_line_text' =&gt; $param_line_text,
+                        ));
+                      $order = $order + 1;
+                      $cnt = $cnt +1;
+                    }
+                  }
+              }
+              fclose ($f);
+
+              if ($found_in_file) {
+                  $html .= "&lt;div data-file='".htmlspecialchars($file)."'&gt;{$line_block}&lt;/div&gt;";
+              }
+
+          }
+        }
+      }
+      $time_end = microtime(true);
+      $time = $time_end - $time_start;
+      $html .= "&lt;/div&gt;";
+      $html .= "&lt;hr/&gt;&lt;span&gt;(".round($time,3)."s)&lt;/span&gt;&lt;span&gt;(Count: All: {$count_all} Grep: {$count_grep} File: {$count_file})&lt;/span&gt;";
+    }
+
+    $menu = template_search_menu(array(
+      'search' =&gt; htmlspecialchars($search),
+      'replace_replace' =&gt; htmlspecialchars($replace_replace),
+      'dir' =&gt; htmlspecialchars($dir),
+      'ext_check' =&gt; ($check_extension ? "checked='yes'" : ""),
+      'extensions' =&gt; (isset($_REQUEST['ext'])) ? htmlspecialchars($_REQUEST['ext']) : $options['default_extensions'],
+      'datelimit' =&gt; (($datelimit) ? "checked='yes'" : ""),
+      'datestart' =&gt; ($datestart!=null) ? date("Y-m-d H:i", $datestart) : date("Y-m-d H:i"),
+      'dateend' =&gt; ($dateend!=null) ? date("Y-m-d H:i", $dateend) : date("Y-m-d H:i"),
+      'file_find' =&gt; (isset($_REQUEST['file_find']) || !isset($_REQUEST['find']) ? "checked='yes'" : ""),
+      'grep' =&gt; (isset($_REQUEST['grep']) || !isset($_REQUEST['find']) ? "checked='yes'" : ""),
+      'exclude' =&gt; (isset($_REQUEST['exclude']) ? $_REQUEST['exclude'] : ""),
+      'matchcase' =&gt; (isset($_REQUEST['matchcase'])?"checked='yes'":""),
+      'regex' =&gt; ($regex ? "checked='yes'" : ""),
+      'directory_exist' =&gt; $directory_exist,
+    ));
+
+    $path_parts = pathinfo($dir);
+
+    echo template_search_body(array(
+      'title' =&gt; $path_parts['basename'],
+      'html' =&gt; $html,
+      'menu' =&gt; $menu,
+    ));
+  }
+</note>
+      <scriptid>grep.view.search</scriptid>
+      <layer>0</layer>
+      <x>1498</x>
+      <y>102</y>
+      <color>#B9B9FF</color>
+      <timecreate>2015-4-30 20:02:49</timecreate>
+      <timemodify>2015-4-30 21:07:51</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>51</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <text>findTextPos</text>
+      <note>  function findTextPos($search, $line, $regex, $matchcase)
+  {
+    $pos = -1;
+    if ($regex)
+    {
+        if ($matchcase)
+        {
+            $pos = preg_match('~'.$search.'~', $line);
+        }
+        else
+        {
+            $pos = preg_match('~'.$search.'~i', $line);
+        }
+    }
+    else
+    {
+        if ($matchcase)
+        {
+            $pos = strpos($line , $search);
+        }
+        else
+        {
+            $pos = stripos($line, $search);
+        }
+    }
+
+    return $pos;
+  }</note>
+      <scriptid>grep.view.search.findTextPos</scriptid>
+      <layer>0</layer>
+      <x>1665</x>
+      <y>133</y>
+      <color>#FFC1A4</color>
+      <timecreate>2015-4-30 21:07:56</timecreate>
+      <timemodify>2015-4-30 21:08:17</timemodify>
+    </rectangle>
+    <rectangle>
+      <id>52</id>
+      <font>Open Sans; 10pt</font>
+      <fontcolor>Black</fontcolor>
+      <layer>0</layer>
+      <x>682</x>
+      <y>23</y>
+      <color>#FFFFB8</color>
+      <transparent>true</transparent>
+      <timecreate>2015-4-30 21:39:13</timecreate>
+      <timemodify>2015-4-30 21:39:13</timemodify>
+    </rectangle>
+  </rectangles>
+  <lines>
+    <line>
+      <start>11</start>
+      <end>6</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>12</start>
+      <end>7</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>13</start>
+      <end>8</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>14</start>
+      <end>9</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>11</start>
+      <end>2</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>12</start>
+      <end>2</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>13</start>
+      <end>2</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>14</start>
+      <end>2</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>20</start>
+      <end>19</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>21</start>
+      <end>20</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>22</start>
+      <end>21</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>23</start>
+      <end>22</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>24</start>
+      <end>25</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>25</start>
+      <end>26</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>27</start>
+      <end>28</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>28</start>
+      <end>29</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>29</start>
+      <end>30</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>30</start>
+      <end>31</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>31</start>
+      <end>32</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>38</start>
+      <end>36</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>39</start>
+      <end>36</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>41</start>
+      <end>40</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>41</start>
+      <end>38</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>19</start>
+      <end>42</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>51</start>
+      <end>48</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>24</start>
+      <end>46</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>27</start>
+      <end>48</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>48</start>
+      <end>46</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>46</start>
+      <end>42</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>42</start>
+      <end>43</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>43</start>
+      <end>2</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>38</start>
+      <end>2</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>10</start>
+      <end>43</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>52</start>
+      <end>2</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>1</start>
+      <end>52</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>17</start>
+      <end>1</end>
+      <arrow>0</arrow>
+    </line>
+    <line>
+      <start>18</start>
+      <end>17</end>
+      <arrow>0</arrow>
+    </line>
+  </lines>
+</diagram>
