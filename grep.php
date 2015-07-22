@@ -193,7 +193,7 @@
       $temp_path = explode(';', $_REQUEST['exclude']);
       foreach ($temp_path as $temp) {
         if (trim($temp) != "") {
-            if (file_exists($temp)) {
+            if (file_exists($temp) && realpath($temp)==$temp) {
                 $options['exclude_dir'][] =  realpath($temp);
             } else {
                 $temp_dir = realpath($dir). DIRECTORY_SEPARATOR .$temp;
