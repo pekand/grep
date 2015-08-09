@@ -505,6 +505,53 @@
               window.prompt('Copy to clipboard: Ctrl+C, Enter', e.textContent);
             }
 
+            function EncodeQueryData(data)
+			{
+			   var ret = [];
+			   for (var d in data)
+			      ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+			   return ret.join('&');
+			}
+
+			function URLToArray() {
+				var url = location.search;	
+			    var request = [];
+			    var pairs = url.substring(url.indexOf('?') + 1).split('&');
+			    for (var i = 0; i < pairs.length; i++) {
+			        if(!pairs[i])
+			            continue;
+			        var pair = pairs[i].split('=');
+			        request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+			     }
+			     return request;
+			}
+
+            function buildNewUrl() {
+            	var data = URLToArray();
+
+            	var dataNew = [];
+            	dataNew['search'] = document.getElementById('search').value;
+				dataNew['dir'] = document.getElementById('dir').value;
+				dataNew['exclude'] = document.getElementById('exclude').value;
+				dataNew['ext'] = document.getElementById('ext').value;
+				dataNew['datelimit'] = document.getElementById('datelimit').value;
+				dataNew['datestart'] = document.getElementById('datestart').value;
+				dataNew['dateend'] = document.getElementById('dateend').value;
+				dataNew['file_find'] = document.getElementById('file_find').value;
+				dataNew['grep'] = document.getElementById('grep').value;
+				dataNew['matchcase'] = document.getElementById('matchcase').value;
+				dataNew['regex'] = document.getElementById('regex').value;
+
+				for(key in dataNew){
+				    data[key] = dataNew[key]
+				}
+
+				console.log(data);
+
+				window.history.pushState('', 'Grep', '?' + EncodeQueryData(data));
+
+            }
+
             document.onkeydown=function(e){
                 if( (e.which == 83) && (!e.altKey) && e.ctrlKey ) {
                   window.location.hash = '#search';
@@ -529,7 +576,7 @@
             <tr>
               <td class='t3' >Search: </td>
               <td>
-                <input type='text' name='search' id='search' class='t4' value=\"".$params['search']."\" />
+                <input type='text' name='search' id='search' class='t4' value=\"".$params['search']."\" onchange='buildNewUrl();' />
                 <input type='hidden' name='view' value='search' />
                 <input type='submit' name='find' value='Find' />
               </td>
@@ -537,40 +584,40 @@
             <tr>
               <td>Directory: </td>
               <td>
-                <input type='text' name='dir' id='dir' value='".$params['dir']."' style='background-color:".($params['directory_exist'] ? "" : "#FFCCCC")."'/>
+                <input type='text' name='dir' id='dir' value='".$params['dir']."' style='background-color:".($params['directory_exist'] ? "" : "#FFCCCC")."' onchange='buildNewUrl();' />
               </td>
             </tr>
              <tr>
               <td>Exclude: </td>
               <td>
-                <input type='text' name='exclude' id='exclude' value='".$params['exclude']."' />
+                <input type='text' name='exclude' id='exclude' value='".$params['exclude']."' onchange='buildNewUrl();' />
               </td>
             </tr>
             <tr>
               <td>Extensions: </td>
               <td>
-                <input id='ext_check' name='ext_check' value='ext_check' type='checkbox' ".$params['ext_check'].">
-                <input type='text' name='ext' id='ext' value='".$params['extensions']."' />
+                <input id='ext_check' name='ext_check' value='ext_check' type='checkbox' ".$params['ext_check']." onchange='buildNewUrl();' />
+                <input type='text' name='ext' id='ext' value='".$params['extensions']."' onchange='buildNewUrl();' />
               </td>
             </tr>
             <tr>
               <td>Date: </td>
               <td>
-                <input type='checkbox' name='datelimit' id='datelimit' value='datelimit' ".$params['datelimit']." />
-                <input type='text' class='t9' name='datestart' id='datestart' value='".$params['datestart']."' />
-                <input type='text' class='t10' name='dateend' id='dateend' value='".$params['dateend']."' />
+                <input type='checkbox' name='datelimit' id='datelimit' value='datelimit' ".$params['datelimit']." onchange='buildNewUrl();' />
+                <input type='text' class='t9' name='datestart' id='datestart' value='".$params['datestart']."' onchange='buildNewUrl();' />
+                <input type='text' class='t10' name='dateend' id='dateend' value='".$params['dateend']."' onchange='buildNewUrl();' />
               </td>
             </tr>
             <tr>
               <td>Options: </td>
               <td>
-                <input type='checkbox' name='file_find' id='file_find' value='file_find' ".$params['file_find']." />
+                <input type='checkbox' name='file_find' id='file_find' value='file_find' ".$params['file_find']." onchange='buildNewUrl();' />
                 <label for='file_find'>Find</label>
-                <input type='checkbox' name='grep' id='grep' value='grep' ".$params['grep']." />
+                <input type='checkbox' name='grep' id='grep' value='grep' ".$params['grep']." onchange='buildNewUrl();' />
                 <label for='grep'>Grep</label>
-                <input type='checkbox' name='matchcase' id='matchcase' value='matchcase' ".$params['matchcase']." />
+                <input type='checkbox' name='matchcase' id='matchcase' value='matchcase' ".$params['matchcase']." onchange='buildNewUrl();' />
                 <label for='matchcase'>Match case</label>
-                <input type='checkbox' name='regex' id='regex' value='regex' ".$params['regex']." />
+                <input type='checkbox' name='regex' id='regex' value='regex' ".$params['regex']." onchange='buildNewUrl();' />
                 <label for='regex'>Regex</label>
               </td>
             </tr>
