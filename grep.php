@@ -887,9 +887,8 @@
       $order = 0;
       $time_start = microtime(true);
       $it = new RecursiveDirectoryIterator($dir);
-      foreach(new RecursiveIteratorIterator($it) as $file)
+      foreach(new RecursiveIteratorIterator($it, RecursiveIteratorIterator::SELF_FIRST, RecursiveIteratorIterator::CATCH_GET_CHILD) as $file)
       {
-
         // skip files whits is not in time interval
         if($datelimit && !($datestart<=filemtime($file) && filemtime($file)<=$dateend))
         {
