@@ -34,13 +34,14 @@
   $view = "homescreen";
   $listdir = "";
   $searchall = false; // list all files in dyrectory (search is empty and find was pressed)
+  $command = @$_REQUEST['command'];
 
   // hladane slovo
   if(isset($_REQUEST['search']))
   {
     $search = $_REQUEST['search'];
 
-    if(trim($search)=="" && isset($_REQUEST['find']))
+    if(trim($search)=="" && $command == "find")
     {
       $searchall = true;
     }
@@ -140,12 +141,9 @@
 
   // #PARAMETER FIND
   $find = true;
-  if(isset($_REQUEST['find']))
+  if($command == "find")
   {
-    if($_REQUEST['find']=='find')
-    {
       $find = true;
-    }
   }
 
   // #PARAMETER GREP
@@ -578,7 +576,7 @@
               <td>
                 <input type='text' name='search' id='search' class='t4' value=\"".$params['search']."\" onchange='buildNewUrl();' />
                 <input type='hidden' name='view' value='search' />
-                <input type='submit' name='find' value='Find' />
+                <input type='submit' name='command' value='find' />
               </td>
             </tr>
             <tr>
@@ -610,7 +608,7 @@
             </tr>
             <tr>
               <td>Options: </td>
-              <td>
+              <td>                
                 <input type='checkbox' name='file_find' id='file_find' value='file_find' ".$params['file_find']." onchange='buildNewUrl();' />
                 <label for='file_find'>Find</label>
                 <input type='checkbox' name='grep' id='grep' value='grep' ".$params['grep']." onchange='buildNewUrl();' />
@@ -619,6 +617,7 @@
                 <label for='matchcase'>Match case</label>
                 <input type='checkbox' name='regex' id='regex' value='regex' ".$params['regex']." onchange='buildNewUrl();' />
                 <label for='regex'>Regex</label>
+                <input type='submit' name='command' value='set' />
               </td>
             </tr>
           </table>
@@ -876,12 +875,12 @@
     return $pos;
   }
 
-  if($view == 'search' || $view == 'homescreen' ){
+  if($view == 'search' || $view == 'homescreen'){
     $count_all = 0;
     $count_grep = 0;
     $count_file = 0;
 
-    if(($search!='' || $searchall) && $directory_exist && !$wait)
+    if(($search!='' || $searchall) && $directory_exist && $command == "find")
     {
       $html .= "<div>";
       $order = 0;
@@ -1057,8 +1056,8 @@
       'datelimit' => (($datelimit) ? "checked='yes'" : ""),
       'datestart' => ($datestart!=null) ? date("Y-m-d H:i", $datestart) : date("Y-m-d H:i"),
       'dateend' => ($dateend!=null) ? date("Y-m-d H:i", $dateend) : date("Y-m-d H:i"),
-      'file_find' => (isset($_REQUEST['file_find']) || !isset($_REQUEST['find']) ? "checked='yes'" : ""),
-      'grep' => (isset($_REQUEST['grep']) || !isset($_REQUEST['find']) ? "checked='yes'" : ""),
+      'file_find' => (isset($_REQUEST['file_find']) || $command != "find" ? "checked='yes'" : ""),
+      'grep' => (isset($_REQUEST['grep']) || $command != "find" ? "checked='yes'" : ""),
       'exclude' => (isset($_REQUEST['exclude']) ? $_REQUEST['exclude'] : ""),
       'matchcase' => (isset($_REQUEST['matchcase'])?"checked='yes'":""),
       'regex' => ($regex ? "checked='yes'" : ""),
