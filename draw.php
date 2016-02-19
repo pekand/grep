@@ -10,22 +10,73 @@ $db = @mysql_connect('localhost',$user,$pass);
 
 $dbname = @$_REQUEST['dbname'];
 
-$out = "";
+$out = array();
 if(trim($dbname) != "")
 {
     $out = getForeginKey($db, $dbname);
-}
+    $struct = getStructure($db, $dbname);
 
-drawInterface($dbname, $out);
-function drawInterface( $dbname, $out)
+}
+$databases = getDatabaseNames($db);
+
+drawInterface($dbname, $out, $struct, $databases);
+function drawInterface( $dbname, $out, $struct, $databases)
 {
     echo "<html><head><title>sGrep</title></head><body>";
-    echo "<div class='bar'><form action='' method='get'>";
-    echo "<div class='dbname'><input type='text' id='dbname' name='dbname' placeholder='dbname' value='{$dbname}' />";
-    echo "<input type='submit' /></div>";
-    echo "</form></div>";
+    echo "<style>a:link, a:hover, a:active, a:visited{color:black;text-decoration: none;}</style>";
+    echo "<div class='bar'>";
 
+
+    echo "<span><b>Databases</b>: </span>";
+    foreach($databases as $database)
+    {
+        echo " <span><a href='?dbname={$database}' style='color:blue;'>{$database}</a></span> | ";
+    }
+    echo "</div>";
+
+    echo "<h1>Graf</h1>";
+    echo "<div class='draw' >";
     draw($out);
+    echo "</div>";
+
+    echo "<div class='structure' >";
+
+    echo "<h1>Short structure</h1>";
+    echo "<table class='short_structure' >";
+    foreach($struct as $tablename => $column)
+    {
+        echo "<tr id='table_structure_short_".$tablename."' colspan='2' style='background-color:red;'><td><b>".$tablename."</b><span style='color:grey'>(".count($column).")</span></td></tr>";
+        
+        foreach($column as $columnname => $columnvalues)
+        {
+            echo "<tr colspan='2'><td><a href='#table_structure_column_".$tablename."_".$columnname."'>".$columnname."</a></td></tr>";
+        }      
+        
+    }
+    echo "</table>";
+
+    echo "<h1>Long structure</h1>";
+    echo "<table class='long_structure' >";
+    foreach($struct as $tablename => $column)
+    {
+        echo "<tr colspan='2' style='background-color:red;'><td><b>".$tablename."</b></td></tr>";
+        
+        foreach($column as $columnname => $columnvalues)
+        {
+            echo "<tr id='table_structure_column_".$tablename."_".$columnname."' colspan='2'><td style='background-color:green;'><b><i>".$columnname."</i></b></td></tr>";
+            foreach($columnvalues as $columnvaluename => $columnvalue)
+            {
+                echo "<tr>";                    
+                echo "<td>".$columnvaluename."</td>";  
+                echo "<td>".$columnvalue."</td>";  
+                echo "</tr>";  
+            }
+        }      
+        
+    }
+    echo "</table>";
+
+    echo "</div>";
 
     echo "</body></html>";
 }
@@ -41,7 +92,7 @@ function draw($out)
     foreach($out as $table => &$item)
     {
         echo "<tr style='border:solid 1px grey;'>";
-        echo "<td><div id='table_".$table."' style='float:left;margin:10px;padding:10px;background-color:".$item['color']."' >".$table."<span style='color:grey;font-size:small;'>(".$item['num'].")</span></div></td>";
+        echo "<td><a href='#table_structure_short_".$table."'><div id='table_".$table."' style='float:left;margin:10px;padding:10px;background-color:".$item['color']."' >".$table."<span style='color:grey;font-size:small;'>(".$item['num'].")</span></div></a></td>";
         echo "<td>";
         if(isset($item['ref']))foreach($item['ref'] as $columname => &$data)
         {
@@ -79,6 +130,7 @@ function randomColor ($minVal = 0, $maxVal = 255)
     return sprintf('#%02X%02X%02X', $r, $g, $b);
 
 }
+
 function getStructure($db, $dbname)
 {
      $sql = mysql_query("
@@ -102,7 +154,7 @@ function getStructure($db, $dbname)
         $tablename = $row['TABLE_NAME'];
         $columnname = $row['COLUMN_NAME'];
 
-        $dbstructure[$databasename][$tablename][$columnname] = $row;
+        $dbstructure[$tablename][$columnname] = $row;
     }
 
     return $dbstructure;
@@ -160,4 +212,19 @@ function getForeginKey($db, $dbname)
     return $dbstructure;
 }
 
+function getDatabaseNames($db)
+{
 
+    $sql = mysql_query("SHOW DATABASES", $db);
+    if (!$sql) {
+        echo 'Error: e010: '.mysql_error($db);die;
+    }
+
+    $data = array();
+
+    while ($row = mysql_fetch_assoc($sql)) {
+        $data[] = $row['Database'];
+    }
+
+    return $data;
+}

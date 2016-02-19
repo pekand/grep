@@ -10,6 +10,8 @@ $db = mysql_connect('localhost',$user,$pass);
 $command = @$_REQUEST['command'];
 $word = @$_REQUEST['word'];
 $selector = @$_REQUEST['selector'];
+$excludeString = @$_REQUEST['exclude'];
+
 
 $dbname = @$_REQUEST['dbname'];
 $table = @$_REQUEST['table'];
@@ -47,24 +49,33 @@ if ($command=='structure') {
         }
     }
 
+	$exclude = array();
+    if ($excludeString!="") {
+        $exclude = explode(",", $excludeString);
+        foreach ($exclude as &$value) {
+        	$value = trim($value);
+        }
+    }
+
     $view_columns = array();
     if($column!="") {
         $view_columns = explode("|", $column);
     }
 
 
-    $out = searchfor($db, $word, $dbnames, $tables, $columns, $view_columns);
+    $out = searchfor($db, $word, $dbnames, $tables, $columns, $view_columns, $exclude);
 } 
     
-drawInterface($command, $word, $selector, $dbname, $table , $column, $out);
+drawInterface($command, $word, $selector, $dbname, $table , $column, $excludeString, $out);
 
 
-function drawInterface($command, $word, $selector, $dbname, $table, $column, $out)
+function drawInterface($command, $word, $selector, $dbname, $table, $column, $excludeString,  $out)
 {
     echo "<html><head><title>sGrep</title></head><body>";
     echo "<div class='bar'><form action='' method='get'>";    
     echo "<div class='word'><input type='text' id='word' name='word' placeholder='word' value='{$word}' /></div>";
     echo "<div class='selector'><input type='text' id='selector' name='selector' placeholder='selector' value='{$selector}' /></div>";
+    echo "<div class='exclude'><input type='text' id='exclude' name='exclude' placeholder='exclude' value='{$excludeString}' /></div>";
     echo "<div class='column'><input type='text' id='column' name='column' placeholder='out columns' value='{$column}' /></div>";
     echo "<div class='btn'><input type='submit' name='command' value='search' /></div>";
 
@@ -77,7 +88,7 @@ function drawInterface($command, $word, $selector, $dbname, $table, $column, $ou
     echo "<div class='btn'><input type='submit' name='command' value='databases' /></div>";        
     echo "<div class='btn'><input type='submit' name='set' value='set' /></div>";
     echo "</form></div>";
-    echo "<div class='output'><pre>".print_r($out, true)."</pre></div>";
+    echo "<div class='output'><pre>".htmlspecialchars(print_r($out, true))."</pre></div>";
     echo "</body></html>";
     die();
 }
@@ -128,7 +139,7 @@ function getcolumns($db, $dbname, $dbtable)
     return $data;
 }
 
-function searchfor($db, $word, $dbname_select = array(), $table_select = array(), $column_select = array(), $view_columns = array())
+function searchfor($db, $word, $dbname_select = array(), $table_select = array(), $column_select = array(), $view_columns = array(), $exclude = array())
 {
 
     $dbnames = array();
@@ -154,7 +165,13 @@ function searchfor($db, $word, $dbname_select = array(), $table_select = array()
             $tabletmp = gettables($db, $dbname); // get all tables in database
 
             foreach ($tabletmp as $tablex)
-                $tables[] = $tablex['Tables_in_'.$dbname];
+            {
+            	$tablename = $tablex['Tables_in_'.$dbname];
+            	if(!in_array($tablename, $exclude))
+            	{
+                	$tables[] = $tablename ;
+            	}
+            }
         } else {
             $tables = $table_select;
         }
